@@ -1,0 +1,12 @@
+select '(1,1,1,1)'::fourd <-> '(1,1,1,1)'::fourd = 0;
+ ?column? 
+----------
+ t
+(1 row)
+
+select 0 = '(1,1,1,1)'::fourd <-> '(1,1,1,1)'::fourd;
+ ?column? 
+----------
+ t
+(1 row)
+
