@@ -4,13 +4,12 @@ PG_MODULE_MAGIC;
 #include "fourd.h"
 
 
-#define Mag(c) ((c)->x1 * (c)->x1 + (c)->x2 * (c)->x2 + (c)->x3 * (c)->x3 + (c)->x4 * (c)->x4)
 
 static int
 fourd_abs_cmp_internal(FourD *a, FourD *b)
 {
-	double amag = Mag(a),
-		   bmag = Mag(b);
+	double amag = MAG(a),
+		   bmag = MAG(b);
 
 	if (amag < bmag)
 		return -1;

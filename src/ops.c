@@ -19,8 +19,6 @@ Datum fourd_add(PG_FUNCTION_ARGS)
     PG_RETURN_POINTER(result);
 }
 
-#define EQ(a, b) ((a)->x1 == (b)->x1 && (a)->x2 == (b)->x2 && (a)->x3 == (b)->x3 && (a)->x4 == (b)->x4)
-
 PG_FUNCTION_INFO_V1(fourd_eq);
 
 Datum fourd_eq(PG_FUNCTION_ARGS)
