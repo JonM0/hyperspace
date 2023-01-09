@@ -4,6 +4,8 @@ CREATE FUNCTION fourd_abs_le(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMU
 
 CREATE FUNCTION fourd_abs_eq(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
+CREATE FUNCTION fourd_abs_neq(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
+
 CREATE FUNCTION fourd_abs_ge(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE FUNCTION fourd_abs_gt(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
@@ -43,7 +45,7 @@ CREATE OPERATOR |=| (
 CREATE OPERATOR |<>| (
    leftarg = fourd,
    rightarg = fourd,
-   PROCEDURE = fourd_abs_eq,
+   PROCEDURE = fourd_abs_neq,
    commutator = |<>|,
    negator = |=|,
    RESTRICT = neqsel,
