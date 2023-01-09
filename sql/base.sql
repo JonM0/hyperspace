@@ -1,30 +1,30 @@
-CREATE FUNCTION fourd_in(cstring) RETURNS fourd AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_in(cstring) RETURNS point4d AS 'point4d' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_out(fourd) RETURNS cstring AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_out(point4d) RETURNS cstring AS 'point4d' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_recv(internal) RETURNS fourd AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_recv(internal) RETURNS point4d AS 'point4d' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_send(fourd) RETURNS bytea AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_send(point4d) RETURNS bytea AS 'point4d' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE TYPE fourd (
+CREATE TYPE point4d (
    internallength = 32,
-   input = fourd_in,
-   output = fourd_out,
-   receive = fourd_recv,
-   send = fourd_send,
+   input = point4d_in,
+   output = point4d_out,
+   receive = point4d_recv,
+   send = point4d_send,
    alignment = double
 );
 
-CREATE FUNCTION fourd_eq(fourd, fourd) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_neq(fourd, fourd) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_add(fourd, fourd) RETURNS fourd AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS 'ops' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR = (
-   leftarg = fourd,
-   rightarg = fourd,
-   PROCEDURE = fourd_eq,
+   leftarg = point4d,
+   rightarg = point4d,
+   PROCEDURE = point4d_eq,
    commutator = =,
    negator = <>,
    RESTRICT = eqsel,
@@ -32,9 +32,9 @@ CREATE OPERATOR = (
 );
 
 CREATE OPERATOR <> (
-   leftarg = fourd,
-   rightarg = fourd,
-   PROCEDURE = fourd_neq,
+   leftarg = point4d,
+   rightarg = point4d,
+   PROCEDURE = point4d_neq,
    commutator = <>,
    negator = =,
    RESTRICT = neqsel,
@@ -42,15 +42,15 @@ CREATE OPERATOR <> (
 );
 
 CREATE OPERATOR + (
-   leftarg = fourd,
-   rightarg = fourd,
-   PROCEDURE = fourd_add,
+   leftarg = point4d,
+   rightarg = point4d,
+   PROCEDURE = point4d_add,
    commutator = +
 );
 
 CREATE AGGREGATE sum (
-   sfunc = fourd_add,
-   basetype = fourd,
-   stype = fourd,
+   sfunc = point4d_add,
+   basetype = point4d,
+   stype = point4d,
    initcond = '(0,0,0,0)'
 );

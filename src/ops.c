@@ -1,17 +1,17 @@
 #include "postgres.h"
 #include "fmgr.h"
 PG_MODULE_MAGIC;
-#include "fourd.h"
+#include "point4d.h"
 
-PG_FUNCTION_INFO_V1(fourd_add);
+PG_FUNCTION_INFO_V1(point4d_add);
 
-Datum fourd_add(PG_FUNCTION_ARGS)
+Datum point4d_add(PG_FUNCTION_ARGS)
 {
-    FourD *a = (FourD *)PG_GETARG_POINTER(0);
-    FourD *b = (FourD *)PG_GETARG_POINTER(1);
-    FourD *result;
+    Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
+    Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
+    Point4D *result;
 
-    result = (FourD *)palloc(sizeof(FourD));
+    result = (Point4D *)palloc(sizeof(Point4D));
     result->x1 = a->x1 + b->x1;
     result->x2 = a->x2 + b->x2;
     result->x3 = a->x3 + b->x3;
@@ -19,22 +19,22 @@ Datum fourd_add(PG_FUNCTION_ARGS)
     PG_RETURN_POINTER(result);
 }
 
-PG_FUNCTION_INFO_V1(fourd_eq);
+PG_FUNCTION_INFO_V1(point4d_eq);
 
-Datum fourd_eq(PG_FUNCTION_ARGS)
+Datum point4d_eq(PG_FUNCTION_ARGS)
 {
-    FourD *a = (FourD *)PG_GETARG_POINTER(0);
-    FourD *b = (FourD *)PG_GETARG_POINTER(1);
+    Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
+    Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
 
     PG_RETURN_BOOL(EQ(a, b));
 }
 
-PG_FUNCTION_INFO_V1(fourd_neq);
+PG_FUNCTION_INFO_V1(point4d_neq);
 
-Datum fourd_neq(PG_FUNCTION_ARGS)
+Datum point4d_neq(PG_FUNCTION_ARGS)
 {
-    FourD *a = (FourD *)PG_GETARG_POINTER(0);
-    FourD *b = (FourD *)PG_GETARG_POINTER(1);
+    Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
+    Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
 
     PG_RETURN_BOOL(!EQ(a, b));
 }

@@ -1,8 +1,8 @@
-CREATE FUNCTION fourd_dist(fourd, fourd) RETURNS float8 AS 'dist' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS 'dist' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR <-> (
-   leftarg = fourd,
-   rightarg = fourd,
-   PROCEDURE = fourd_dist,
+   leftarg = point4d,
+   rightarg = point4d,
+   PROCEDURE = point4d_dist,
    commutator = <->
 );

@@ -1,5 +1,5 @@
 create table t (
-    a fourd
+    a point4d
 );
 create index t_a_btree on t using btree(a);
 insert into t values
@@ -15,18 +15,18 @@ insert into t values
 explain
 select a
 from t
-where a |=| '(1,0,0,0)'::fourd;
+where a |=| '(1,0,0,0)'::point4d;
                                QUERY PLAN                               
 ------------------------------------------------------------------------
  Bitmap Heap Scan on t  (cost=4.21..14.35 rows=7 width=32)
-   Recheck Cond: (a |=| '(1,0,0,0)'::fourd)
+   Recheck Cond: (a |=| '(1,0,0,0)'::point4d)
    ->  Bitmap Index Scan on t_a_btree  (cost=0.00..4.21 rows=7 width=0)
-         Index Cond: (a |=| '(1,0,0,0)'::fourd)
+         Index Cond: (a |=| '(1,0,0,0)'::point4d)
 (4 rows)
 
 select a
 from t
-where a |=| '(1,0,0,0)'::fourd;
+where a |=| '(1,0,0,0)'::point4d;
      a     
 -----------
  (0,0,0,1)

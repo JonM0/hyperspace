@@ -2,16 +2,16 @@
 #include "postgres.h"
 #include "fmgr.h"
 PG_MODULE_MAGIC;
-#include "fourd.h"
+#include "point4d.h"
 
-PG_FUNCTION_INFO_V1(fourd_dist);
+PG_FUNCTION_INFO_V1(point4d_dist);
 
-Datum fourd_dist(PG_FUNCTION_ARGS)
+Datum point4d_dist(PG_FUNCTION_ARGS)
 {
-    FourD *a = (FourD *)PG_GETARG_POINTER(0);
-    FourD *b = (FourD *)PG_GETARG_POINTER(1);
+    Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
+    Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
 
-    FourD diff = {
+    Point4D diff = {
         .x1 = a->x1 - b->x1,
         .x2 = a->x2 - b->x2,
         .x3 = a->x3 - b->x3,

@@ -1,7 +1,7 @@
-select '(0,1,1,0)'::fourd;
+select '(0,1,1,0)'::point4d;
 
 create table t (
-    a fourd
+    a point4d
 );
 
 insert into t values

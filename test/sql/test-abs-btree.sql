@@ -1,5 +1,5 @@
 create table t (
-    a fourd
+    a point4d
 );
 
 create index t_a_btree on t using btree(a);
@@ -18,10 +18,10 @@ insert into t values
 explain
 select a
 from t
-where a |=| '(1,0,0,0)'::fourd;
+where a |=| '(1,0,0,0)'::point4d;
 
 select a
 from t
-where a |=| '(1,0,0,0)'::fourd;
+where a |=| '(1,0,0,0)'::point4d;
 
 drop table t;

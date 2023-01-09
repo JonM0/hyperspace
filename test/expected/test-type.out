@@ -1,11 +1,11 @@
-select '(0,1,1,0)'::fourd;
-   fourd   
+select '(0,1,1,0)'::point4d;
+  point4d  
 -----------
  (0,1,1,0)
 (1 row)
 
 create table t (
-    a fourd
+    a point4d
 );
 insert into t values
     ('(0,0,0,1)'),
