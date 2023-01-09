@@ -1,0 +1,36 @@
+create table t (
+    a fourd
+);
+create index t_a_btree on t using btree(a);
+insert into t values
+    ('(0,0,0,1)'),
+    ('(0,0,1,0)'),
+    ('(0,0,2,2)'),
+    ('(1,1,0.5,3)'),
+    ('(2,1,2,4)'),
+    ('(8,0,2,1)'),
+    ('(0,0,2,2)'),
+    ('(1,1,0.5,3)'),
+    ('(3,-9,2,32)');
+explain
+select a
+from t
+where a |=| '(1,0,0,0)'::fourd;
+                               QUERY PLAN                               
+------------------------------------------------------------------------
+ Bitmap Heap Scan on t  (cost=4.21..14.35 rows=7 width=32)
+   Recheck Cond: (a |=| '(1,0,0,0)'::fourd)
+   ->  Bitmap Index Scan on t_a_btree  (cost=0.00..4.21 rows=7 width=0)
+         Index Cond: (a |=| '(1,0,0,0)'::fourd)
+(4 rows)
+
+select a
+from t
+where a |=| '(1,0,0,0)'::fourd;
+     a     
+-----------
+ (0,0,0,1)
+ (0,0,1,0)
+(2 rows)
+
+drop table t;
