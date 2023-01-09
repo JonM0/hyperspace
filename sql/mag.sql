@@ -1,12 +1,14 @@
-CREATE FUNCTION fourd_abs_lt(fourd, fourd) RETURNS bool AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_abs_lt(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_abs_le(fourd, fourd) RETURNS bool AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_abs_le(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_abs_eq(fourd, fourd) RETURNS bool AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_abs_eq(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_abs_ge(fourd, fourd) RETURNS bool AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_abs_ge(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION fourd_abs_gt(fourd, fourd) RETURNS bool AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_abs_gt(fourd, fourd) RETURNS bool AS 'mag' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION fourd_abs_cmp(fourd, fourd) RETURNS int4 AS 'mag' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR |<| (
    leftarg = fourd,
@@ -67,8 +69,6 @@ CREATE OPERATOR |>| (
    RESTRICT = scalargtsel,
    JOIN = scalargtjoinsel
 );
-
-CREATE FUNCTION fourd_abs_cmp(fourd, fourd) RETURNS int4 AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR CLASS fourd_abs_ops DEFAULT FOR TYPE fourd USING btree 
 AS OPERATOR 1 |<|,

@@ -15,7 +15,7 @@ CREATE TYPE fourd (
    alignment = double
 );
 
-CREATE FUNCTION fourd_add(fourd, fourd) RETURNS fourd AS 'fourd' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION fourd_add(fourd, fourd) RETURNS fourd AS 'ops' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR + (
    leftarg = fourd,
