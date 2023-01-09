@@ -1,0 +1,5 @@
+results/
+sql/*--*.sql
+src/**/*.o
+src/**/*.so
+src/**/*.bc
