@@ -15,7 +15,31 @@ CREATE TYPE fourd (
    alignment = double
 );
 
+CREATE FUNCTION fourd_eq(fourd, fourd) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION fourd_neq(fourd, fourd) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+
 CREATE FUNCTION fourd_add(fourd, fourd) RETURNS fourd AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR = (
+   leftarg = fourd,
+   rightarg = fourd,
+   PROCEDURE = fourd_eq,
+   commutator = =,
+   negator = <>,
+   RESTRICT = eqsel,
+   JOIN = eqjoinsel
+);
+
+CREATE OPERATOR <> (
+   leftarg = fourd,
+   rightarg = fourd,
+   PROCEDURE = fourd_neq,
+   commutator = <>,
+   negator = =,
+   RESTRICT = neqsel,
+   JOIN = neqjoinsel
+);
 
 CREATE OPERATOR + (
    leftarg = fourd,
