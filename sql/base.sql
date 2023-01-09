@@ -12,7 +12,7 @@ CREATE TYPE point4d (
    output = point4d_out,
    receive = point4d_recv,
    send = point4d_send,
-   alignment = double
+   alignment = float8
 );
 
 CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;

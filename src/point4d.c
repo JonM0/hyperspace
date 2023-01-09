@@ -11,7 +11,7 @@ PG_FUNCTION_INFO_V1(point4d_in);
 Datum point4d_in(PG_FUNCTION_ARGS)
 {
 	char *str = PG_GETARG_CSTRING(0);
-	double x1, x2, x3, x4;
+	float8 x1, x2, x3, x4;
 	Point4D *result;
 
 	if (sscanf(str, " ( %lf, %lf, %lf, %lf )", &x1, &x2, &x3, &x4) != 4)

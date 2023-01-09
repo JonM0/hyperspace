@@ -8,7 +8,7 @@ PG_MODULE_MAGIC;
 static int
 point4d_abs_cmp_internal(Point4D *a, Point4D *b)
 {
-	double amag = MAG(a),
+	float8 amag = MAG(a),
 		   bmag = MAG(b);
 
 	if (amag < bmag)
