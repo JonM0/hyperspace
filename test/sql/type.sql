@@ -1,5 +1,3 @@
-create extension hyperspace;
-
 select '(0,1,1,0)'::fourd;
 
 create table t (
