@@ -3,3 +3,5 @@ sql/*--*.sql
 src/**/*.o
 src/**/*.so
 src/**/*.bc
+regression.diffs
+regression.out
