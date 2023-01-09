@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "src/**/*.o": true,
+        "src/**/*.so": true,
+        "src/**/*.bc": true
+    }
+}
