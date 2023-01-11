@@ -14,7 +14,7 @@ EXTRA_CLEAN = sql/$(EXTENSION)--$(EXTVERSION).sql
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
-sql/$(EXTENSION)--$(EXTVERSION).sql: sql/base.sql sql/dist.sql sql/abs.sql #$(filter-out sql/base.sql, $(wildcard sql/*.sql)) 
+sql/$(EXTENSION)--$(EXTVERSION).sql: sql/base.sql sql/dist.sql sql/abs.sql sql/kdb.sql #$(filter-out sql/base.sql, $(wildcard sql/*.sql)) 
 	cat $+ > $@
 
 
