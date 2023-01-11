@@ -1,13 +1,21 @@
 #ifndef POINT4D_H
 #define POINT4D_H
 
-typedef struct Point4D
+#include <assert.h>
+
+typedef union Point4D
 {
-	float8 x1;
-	float8 x2;
-	float8 x3;
-	float8 x4;
+	struct
+	{
+		float8 x;
+		float8 y;
+		float8 z;
+		float8 w;
+	};
+	float8 _v[4];
 } Point4D;
+
+static_assert(sizeof(Point4D) == sizeof(float8) * 4, "Undefined behaviour broke");
 
 typedef struct Box4D
 {
@@ -15,15 +23,18 @@ typedef struct Box4D
 	Point4D high;
 } Box4D;
 
-#define EQ(a, b) ((a)->x1 == (b)->x1 && (a)->x2 == (b)->x2 && (a)->x3 == (b)->x3 && (a)->x4 == (b)->x4)
-#define MAG(c) ((c)->x1 * (c)->x1 + (c)->x2 * (c)->x2 + (c)->x3 * (c)->x3 + (c)->x4 * (c)->x4)
+#define EQ(a, b) ((a)->x == (b)->x && (a)->y == (b)->y && (a)->z == (b)->z && (a)->w == (b)->w)
+#define MAG(c) ((c)->x * (c)->x + (c)->y * (c)->y + (c)->z * (c)->z + (c)->w * (c)->w)
 
-#define P4D_COMP_I(p, i) ((i) == 0	 ? (p)->x1 \
-						  : (i) == 1 ? (p)->x2 \
-						  : (i) == 2 ? (p)->x3 \
-									 : (p)->x4)
+#define CONT(box, point) ((box)->low.x <= (point)->x && (box)->high.x >= (point)->x && \
+						  (box)->low.y <= (point)->y && (box)->high.y >= (point)->y && \
+						  (box)->low.z <= (point)->z && (box)->high.z >= (point)->z && \
+						  (box)->low.w <= (point)->w && (box)->high.w >= (point)->w)
 
 #define DatumGetPoint4DP(X) ((Point4D *)DatumGetPointer(X))
 #define Point4DPGetDatum(X) PointerGetDatum(X)
+
+#define DatumGetBox4DP(X) ((Box4D *)DatumGetPointer(X))
+#define Box4DPGetDatum(X) PointerGetDatum(X)
 
 #endif
