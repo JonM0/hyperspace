@@ -54,3 +54,40 @@ CREATE AGGREGATE sum (
    stype = point4d,
    initcond = '(0,0,0,0)'
 );
+
+-- BOX 4D
+CREATE FUNCTION box4d_in(cstring) RETURNS box4d AS 'box4d' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION box4d_out(box4d) RETURNS cstring AS 'box4d' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION box4d_recv(internal) RETURNS box4d AS 'box4d' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION box4d_send(box4d) RETURNS bytea AS 'box4d' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE TYPE box4d (
+   internallength = 32,
+   input = box4d_in,
+   output = box4d_out,
+   receive = box4d_recv,
+   send = box4d_send,
+   alignment = float8
+);
+
+CREATE FUNCTION point4d_containedin_box4d(point4d, box4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION box4d_contains_point4d(box4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE OPERATOR <@ (
+   leftarg = point4d,
+   rightarg = box4d,
+   PROCEDURE = point4d_containedin_box4d,
+   commutator = @>,
+   JOIN = contjoinsel
+);
+
+CREATE OPERATOR @> (
+   leftarg = box4d,
+   rightarg = point4d,
+   PROCEDURE = box4d_contains_point4d,
+   commutator = <@,
+   JOIN = contjoinsel
+);
