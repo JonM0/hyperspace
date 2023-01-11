@@ -1,12 +1,10 @@
-create table t (
-    a point4d
-);
+CREATE TABLE t (a point4d);
 
-create index t_a_kdbspgist on t using spgist(a point4d_kdb);
+CREATE INDEX t_a_kdbspgist ON t USING spgist(a point4d_kdb);
 
-insert into t values
-    ('(0,0,0,1)'),
-    ('(0,0,1,0)'),
+INSERT INTO t
+VALUES ('(0,0,0,1)'),
+    ('(0,1,0,0)'),
     ('(0,0,2,2)'),
     ('(1,1,0.5,3)'),
     ('(2,1,2,4)'),
@@ -15,38 +13,83 @@ insert into t values
     ('(1,1,0.5,3)'),
     ('(3,-9,2,32)');
 
-set enable_seqscan=false;
+SET enable_seqscan = false;
 
-explain
-select a
-from t
-where a <@ box4d '((0,0,0,0), (1,1,1,1))';
+EXPLAIN
+SELECT a
+FROM t
+WHERE a <@ box4d '((0,0,0,0), (1,1,1,1))';
 
-select a
-from t
-where a <@ box4d '((0,0,0,0), (1,1,1,1))';
+SELECT a
+FROM t
+WHERE a <@ box4d '((0,0,0,0), (1,1,1,1))';
 
+EXPLAIN
+SELECT a
+FROM t
+WHERE a = '(0,0,0,1)'::point4d;
 
-explain
-select a
-from t
-where a = '(0,0,0,1)'::point4d;
+SELECT a
+FROM t
+WHERE a = '(0,0,0,1)'::point4d;
 
-select a
-from t
-where a = '(0,0,0,1)'::point4d;
+EXPLAIN
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+ORDER BY d;
 
-explain
-select a, a <-> point4d '(0,0,0,0)' as d
-from t
-order by d;
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+ORDER BY d;
 
-select a, a <-> point4d '(0,0,0,0)' as d
-from t
-order by d;
+EXPLAIN
+SELECT a,
+    a <->point4d '(0,0,0,0)' AS d1,
+    a <->point4d '(0,1.12,0,0)' AS d2
+FROM t
+ORDER BY d1,
+    d2;
 
+SELECT a,
+    a <->point4d '(0,0,0,0)' AS d1,
+    a <->point4d '(0,1.12,0,0)' AS d2
+FROM t
+ORDER BY d1,
+    d2;
 
+EXPLAIN
+SELECT a,
+    a <->point4d '(0,0,0,0)' AS d1,
+    a <->point4d '(0,1.12,0,0)' AS d2
+FROM t
+WHERE a <@ box4d '((0,0,0,0), (1,1,inf,inf))'
+ORDER BY d1,
+    d2;
 
-set enable_seqscan=true;
+SELECT a,
+    a <->point4d '(0,0,0,0)' AS d1,
+    a <->point4d '(0,1.12,0,0)' AS d2
+FROM t
+WHERE a <@ box4d '((0,0,0,0), (1,1,inf,inf))'
+ORDER BY d1,
+    d2;
 
-drop table t;
+SET enable_seqscan = TRUE;
+
+DROP INDEX t_a_kdbspgist;
+
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+ORDER BY d;
+
+SELECT a,
+    a <->point4d '(0,0,0,0)' AS d1,
+    a <->point4d '(0,1.12,0,0)' AS d2
+FROM t
+ORDER BY d1,
+    d2;
+
+DROP TABLE t;
