@@ -2,11 +2,11 @@
 #include "postgres.h"
 #include "fmgr.h"
 #include "access/spgist.h"
-#include "access/stratnum.h"
 #include "catalog/pg_type.h"
 #include "utils/float.h"
 PG_MODULE_MAGIC;
 #include "point4d.h"
+#include "kdt-stratnum.h"
 
 // to get type from name use typenameTypeId from "parser/parse_type.h"
 
@@ -92,12 +92,7 @@ Datum point4d_kdbtree_picksplit(PG_FUNCTION_ARGS)
 
 static double point4d_point4d_distance(const Point4D *a, const Point4D *b)
 {
-    Point4D diff = {
-        .x = a->x - b->x,
-        .y = a->y - b->y,
-        .z = a->z - b->z,
-        .w = a->w - b->w,
-    };
+    Point4D diff = DIFF(a, b);
 
     return sqrt(MAG(&diff));
 }
@@ -244,18 +239,27 @@ Datum point4d_kdbtree_inner_consistent(PG_FUNCTION_ARGS)
     {
         switch (in->scankeys[i].sk_strategy)
         {
-        case RTEqualStrategyNumber:
+        case KDTEqualStrategyNumber:
         {
             Point4D *query = DatumGetPoint4DP(in->scankeys[i].sk_argument);
             which &= query->_v[comp] <= split ? (1 << 0) : (1 << 1);
         }
         break;
-        case RTContainedByStrategyNumber:
+        case KDTContainedByBoxStrategyNumber:
         {
             Box4D *query = DatumGetBox4DP(in->scankeys[i].sk_argument);
             if (split < query->low._v[comp])
                 which &= (1 << 1);
             else if (split >= query->low._v[comp])
+                which &= (1 << 0);
+        }
+        break;
+        case KDTContainedByCircleStrategyNumber:
+        {
+            Circle4D *query = DatumGetCircle4DP(in->scankeys[i].sk_argument);
+            if (split < query->center._v[comp] - query->radius)
+                which &= (1 << 1);
+            else if (split >= query->center._v[comp] + query->radius)
                 which &= (1 << 0);
         }
         break;
@@ -317,13 +321,21 @@ Datum point4d_kdbtree_leaf_consistent(PG_FUNCTION_ARGS)
     {
         switch (in->scankeys[i].sk_strategy)
         {
-        case RTEqualStrategyNumber:
+        case KDTEqualStrategyNumber:
             res = EQ(DatumGetPoint4DP(in->scankeys[i].sk_argument), datum);
             break;
 
-        case RTContainedByStrategyNumber:
+        case KDTContainedByBoxStrategyNumber:
             res = BOX_CONT(DatumGetBox4DP(in->scankeys[i].sk_argument), datum);
             break;
+
+        case KDTContainedByCircleStrategyNumber:
+        {
+            Circle4D *query = DatumGetCircle4DP(in->scankeys[i].sk_argument);
+            Point4D diff = DIFF(&query->center, datum);
+            res = MAG(&diff) <= query->radius * query->radius;
+        }
+        break;
 
         default:
             elog(ERROR, "unrecognized strategy number: %d",

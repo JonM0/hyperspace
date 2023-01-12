@@ -76,7 +76,28 @@ WHERE a <@ box4d '((0,0,0,0), (1,1,inf,inf))'
 ORDER BY d1,
     d2;
 
+explain
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+where a <@ circle4d '((0,0,2.34,0), 2.1)'
+ORDER BY d;
+
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+where a <@ circle4d '((0,0,2.34,0), 2.1)'
+ORDER BY d;
+
+
+SELECT a,
+    a <->point4d '(1,1,1,1)'
+FROM t
+where a <@ circle4d '((1,1,1,1), 4.3)' and a <@ box4d '((0,0,0,0), (3,3,2,2))';
+
+
 SET enable_seqscan = TRUE;
+
 DROP INDEX t_a_kdbspgist;
 
 SELECT a,
@@ -90,6 +111,5 @@ SELECT a,
 FROM t
 ORDER BY d1,
     d2;
-
 
 DROP TABLE t;
