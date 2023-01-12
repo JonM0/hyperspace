@@ -77,7 +77,6 @@ ORDER BY d1,
     d2;
 
 SET enable_seqscan = TRUE;
-
 DROP INDEX t_a_kdbspgist;
 
 SELECT a,
@@ -91,5 +90,6 @@ SELECT a,
 FROM t
 ORDER BY d1,
     d2;
+
 
 DROP TABLE t;

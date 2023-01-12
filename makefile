@@ -17,7 +17,7 @@ PG_CPPFLAGS = -Isrc
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
-sql/$(EXTENSION)--$(EXTVERSION).sql: sql/base.sql sql/dist.sql sql/abs.sql sql/kdb.sql #$(filter-out sql/base.sql, $(wildcard sql/*.sql)) 
+sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kdb.sql
 	cat $+ > $@
 
 
