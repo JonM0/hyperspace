@@ -17,11 +17,13 @@ CREATE TYPE point4d (
    element = float8
 );
 
-CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS 'dist' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR = (
    leftarg = point4d,
@@ -31,6 +33,13 @@ CREATE OPERATOR = (
    negator = <>,
    RESTRICT = eqsel,
    JOIN = eqjoinsel
+);
+
+CREATE OPERATOR <->(
+   leftarg = point4d,
+   rightarg = point4d,
+   PROCEDURE = point4d_dist,
+   commutator = <->
 );
 
 CREATE OPERATOR <> (
@@ -76,8 +85,9 @@ CREATE TYPE box4d (
    element = point4d
 );
 
-CREATE FUNCTION point4d_containedin_box4d(point4d, box4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
-CREATE FUNCTION box4d_contains_point4d(box4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_containedin_box4d(point4d, box4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+
+CREATE FUNCTION box4d_contains_point4d(box4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR <@ (
    leftarg = point4d,
@@ -113,9 +123,9 @@ CREATE TYPE circle4d (
    alignment = double
 );
 
+CREATE FUNCTION point4d_containedin_circle4d(point4d, circle4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_containedin_circle4d(point4d, circle4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
-CREATE FUNCTION circle4d_contains_point4d(circle4d, point4d) RETURNS bool AS 'ops' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION circle4d_contains_point4d(circle4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR <@ (
    leftarg = point4d,

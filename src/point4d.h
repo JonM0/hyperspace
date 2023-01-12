@@ -50,4 +50,7 @@ typedef struct Circle4D
 #define DatumGetBox4DP(X) ((Box4D *)DatumGetPointer(X))
 #define Box4DPGetDatum(X) PointerGetDatum(X)
 
+#define DatumGetCircle4DP(X) ((Circle4D *)DatumGetPointer(X))
+#define Circle4DPGetDatum(X) PointerGetDatum(X)
+
 #endif

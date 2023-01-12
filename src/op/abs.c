@@ -3,8 +3,6 @@
 PG_MODULE_MAGIC;
 #include "point4d.h"
 
-
-
 static int
 point4d_abs_cmp_internal(Point4D *a, Point4D *b)
 {

@@ -1,10 +1,10 @@
 #include "postgres.h"
 #include "fmgr.h"
+#include "math.h"
 PG_MODULE_MAGIC;
 #include "point4d.h"
 
 PG_FUNCTION_INFO_V1(point4d_add);
-
 Datum point4d_add(PG_FUNCTION_ARGS)
 {
     Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -17,6 +17,17 @@ Datum point4d_add(PG_FUNCTION_ARGS)
     result->z = a->z + b->z;
     result->w = a->w + b->w;
     PG_RETURN_POINTER(result);
+}
+
+PG_FUNCTION_INFO_V1(point4d_dist);
+Datum point4d_dist(PG_FUNCTION_ARGS)
+{
+    Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
+    Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
+
+    Point4D diff = DIFF(a, b);
+
+    PG_RETURN_FLOAT8(sqrt(MAG(&diff)));
 }
 
 /*
@@ -67,7 +78,6 @@ Datum box4d_contains_point4d(PG_FUNCTION_ARGS)
     PG_RETURN_BOOL(BOX_CONT(box, point));
 }
 
-
 /*
  * Point in Circle containment
  */
@@ -78,7 +88,7 @@ Datum point4d_containedin_circle4d(PG_FUNCTION_ARGS)
 {
     Point4D *point = (Point4D *)PG_GETARG_POINTER(0);
     Circle4D *circle = (Circle4D *)PG_GETARG_POINTER(1);
-    
+
     Point4D diff = DIFF(&circle->center, point);
 
     PG_RETURN_BOOL(MAG(&diff) <= circle->radius * circle->radius);
