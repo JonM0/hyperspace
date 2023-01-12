@@ -322,7 +322,7 @@ Datum point4d_kdbtree_leaf_consistent(PG_FUNCTION_ARGS)
             break;
 
         case RTContainedByStrategyNumber:
-            res = CONT(DatumGetBox4DP(in->scankeys[i].sk_argument), datum);
+            res = BOX_CONT(DatumGetBox4DP(in->scankeys[i].sk_argument), datum);
             break;
 
         default:

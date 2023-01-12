@@ -11,12 +11,7 @@ Datum point4d_dist(PG_FUNCTION_ARGS)
     Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
     Point4D *b = (Point4D *)PG_GETARG_POINTER(1);
 
-    Point4D diff = {
-        .x = a->x - b->x,
-        .y = a->y - b->y,
-        .z = a->z - b->z,
-        .w = a->w - b->w,
-    };
+    Point4D diff = DIFF(a, b);
 
     PG_RETURN_FLOAT8(sqrt(MAG(&diff)));
 }
