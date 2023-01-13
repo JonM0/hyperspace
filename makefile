@@ -11,14 +11,15 @@ REGRESS_OPTS = --inputdir=test
 
 EXTRA_CLEAN = sql/$(EXTENSION)--$(EXTVERSION).sql
 
-PG_CFLAGS = -Isrc
-PG_CPPFLAGS = -Isrc
+PG_CFLAGS = -Iinclude
+PG_CPPFLAGS = -Iinclude
 
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
 sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kdb.sql
 	cat $+ > $@
+
 
 
 PG_CONFIG = pg_config
