@@ -5,11 +5,12 @@ select '(0,1,1,0)'::point4d;
 (1 row)
 
 select p.p[0], p.p[1], p.p[2], p.p[3]
-from (select '(1,2,3,4)'::point4d as p);
-ERROR:  subquery in FROM must have an alias
-LINE 2: from (select '(1,2,3,4)'::point4d as p);
-             ^
-HINT:  For example, FROM (SELECT ...) [AS] foo.
+from (select '(1,2,3,4)'::point4d as p) as p;
+ p | p | p | p 
+---+---+---+---
+ 1 | 2 | 3 | 4
+(1 row)
+
 select ('(1,2,3,4)'::point4d)[-1];
  point4d 
 ---------

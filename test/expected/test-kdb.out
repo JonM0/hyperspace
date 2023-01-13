@@ -144,6 +144,42 @@ ORDER BY d1,
  (1,1,0.5,3) | 3.3541019662496847 | 3.2038102315836374
 (6 rows)
 
+explain
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+where a <@ circle4d '((0,0,2.34,0), 2.1)'
+ORDER BY d;
+                                   QUERY PLAN                                   
+--------------------------------------------------------------------------------
+ Index Only Scan using t_a_kdbspgist on t  (cost=0.14..63.45 rows=680 width=40)
+   Index Cond: (a <@ '((0,0,2.34,0),2.1)'::circle4d)
+   Order By: (a <-> '(0,0,2.34,0)'::point4d)
+(3 rows)
+
+SELECT a,
+    a <->point4d '(0,0,2.34,0)' AS d
+FROM t
+where a <@ circle4d '((0,0,2.34,0), 2.1)'
+ORDER BY d;
+     a     |        d         
+-----------+------------------
+ (0,0,2,2) | 2.02869416127715
+ (0,0,2,2) | 2.02869416127715
+(2 rows)
+
+SELECT a,
+    a <->point4d '(1,1,1,1)'
+FROM t
+where a <@ circle4d '((1,1,1,1), 4.3)' and a <@ box4d '((0,0,0,0), (3,3,2,2))';
+     a     |      ?column?      
+-----------+--------------------
+ (0,0,0,1) | 1.7320508075688772
+ (0,1,0,0) | 1.7320508075688772
+ (0,0,2,2) |                  2
+ (0,0,2,2) |                  2
+(4 rows)
+
 SET enable_seqscan = TRUE;
 DROP INDEX t_a_kdbspgist;
 SELECT a,

@@ -1,7 +1,7 @@
 select '(0,1,1,0)'::point4d;
 
 select p.p[0], p.p[1], p.p[2], p.p[3]
-from (select '(1,2,3,4)'::point4d as p);
+from (select '(1,2,3,4)'::point4d as p) as p;
 
 select ('(1,2,3,4)'::point4d)[-1];
 select ('(1,2,3,4)'::point4d)[200000];
