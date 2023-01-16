@@ -103,28 +103,28 @@ static double point4d_box4d_distance(const Point4D *p, const Box4D *b)
 
     if (p->x < b->low.x)
         distVect.x = b->low.x - p->x;
-    else if (p->x > b->low.x)
+    else if (p->x > b->high.x)
         distVect.x = p->x - b->high.x;
     else
         distVect.x = 0;
 
     if (p->y < b->low.y)
         distVect.y = b->low.y - p->y;
-    else if (p->y > b->low.y)
+    else if (p->y > b->high.y)
         distVect.y = p->y - b->high.y;
     else
         distVect.y = 0;
 
     if (p->z < b->low.z)
         distVect.z = b->low.z - p->z;
-    else if (p->z > b->low.z)
+    else if (p->z > b->high.z)
         distVect.z = p->z - b->high.z;
     else
         distVect.z = 0;
 
     if (p->w < b->low.w)
         distVect.w = b->low.w - p->w;
-    else if (p->w > b->low.w)
+    else if (p->w > b->high.w)
         distVect.w = p->w - b->high.w;
     else
         distVect.w = 0;
