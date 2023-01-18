@@ -1,10 +1,20 @@
 {
   "image": "postgres:15",
-  "forwardPorts": [5432],
+  "forwardPorts": [
+    5432
+  ],
   "containerEnv": {
     "POSTGRES_USER": "root",
     "POSTGRES_PASSWORD": "root"
   },
   "overrideCommand": false,
-  "postCreateCommand": "bash .devcontainer/install-dev-tools.sh"
+  "postCreateCommand": "bash .devcontainer/install-dev-tools.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "mtxr.sqltools"
+      ]
+    }
+  }
 }
