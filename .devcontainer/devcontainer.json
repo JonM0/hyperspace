@@ -1,5 +1,7 @@
 {
-  "image": "postgres:15",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "forwardPorts": [
     5432
   ],
@@ -8,7 +10,6 @@
     "POSTGRES_PASSWORD": "root"
   },
   "overrideCommand": false,
-  "postCreateCommand": "bash .devcontainer/install-dev-tools.sh",
   "customizations": {
     "vscode": {
       "extensions": [
