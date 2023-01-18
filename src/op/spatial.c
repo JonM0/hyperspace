@@ -1,7 +1,6 @@
 #include "postgres.h"
 #include "fmgr.h"
 #include "math.h"
-PG_MODULE_MAGIC;
 #include "point4d.h"
 
 PG_FUNCTION_INFO_V1(point4d_add);

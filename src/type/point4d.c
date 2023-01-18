@@ -1,7 +1,6 @@
 #include "postgres.h"
 #include "fmgr.h"
 #include "libpq/pqformat.h"
-PG_MODULE_MAGIC;
 #include "point4d.h"
 
 // Define packing and unpacking of four dimensinal point type

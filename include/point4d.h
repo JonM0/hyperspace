@@ -53,4 +53,6 @@ typedef struct Circle4D
 #define DatumGetCircle4DP(X) ((Circle4D *)DatumGetPointer(X))
 #define Circle4DPGetDatum(X) PointerGetDatum(X)
 
+Datum point4d_dist(PG_FUNCTION_ARGS);
+
 #endif

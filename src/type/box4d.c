@@ -2,7 +2,6 @@
 #include "fmgr.h"
 #include "libpq/pqformat.h"
 #include "utils/float.h"
-PG_MODULE_MAGIC;
 #include "point4d.h"
 
 // Define packing and unpacking of four dimensinal box type

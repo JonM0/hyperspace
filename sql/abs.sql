@@ -1,16 +1,16 @@
-CREATE FUNCTION point4d_abs_lt(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_lt(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_le(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_le(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_eq(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_eq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_neq(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_neq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_ge(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_ge(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_gt(point4d, point4d) RETURNS bool AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_gt(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_abs_cmp(point4d, point4d) RETURNS int4 AS 'abs' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_abs_cmp(point4d, point4d) RETURNS int4 AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR |<| (
    leftarg = point4d,

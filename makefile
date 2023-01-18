@@ -2,7 +2,9 @@ EXTENSION = hyperspace
 EXTVERSION = 1.0
 DISTVERSION = 1.0
 
-MODULES	= $(patsubst %.c,%,$(wildcard src/**/*.c))
+MODULE_big = $(EXTENSION)
+OBJS = src/hyperspace_module.o $(patsubst %.c,%.o,$(wildcard src/**/*.c))
+
 DATA = $(wildcard sql/*--*.sql)
 
 REGRESS_BASE = test-base
@@ -11,8 +13,8 @@ REGRESS_OPTS = --inputdir=test
 
 EXTRA_CLEAN = sql/$(EXTENSION)--$(EXTVERSION).sql
 
-PG_CFLAGS = -Iinclude
-PG_CPPFLAGS = -Iinclude
+PG_CFLAGS = -Iinclude -Wno-declaration-after-statement
+PG_CPPFLAGS = $(PG_CFLAGS)
 
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
@@ -20,6 +22,7 @@ all: sql/$(EXTENSION)--$(EXTVERSION).sql
 sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kd.sql
 	cat $+ > $@
 
+$(OBJS): $(wildcard include/*)
 
 
 PG_CONFIG = pg_config

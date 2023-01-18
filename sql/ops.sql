@@ -1,10 +1,10 @@
-CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR = (
     leftarg = point4d,
@@ -48,9 +48,9 @@ CREATE AGGREGATE sum (
 );
 
 -- CONTAINMENT
-CREATE FUNCTION point4d_containedin_box4d(point4d, box4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_containedin_box4d(point4d, box4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION box4d_contains_point4d(box4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION box4d_contains_point4d(box4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR <@ (
     leftarg = point4d,
@@ -68,9 +68,9 @@ CREATE OPERATOR @> (
     JOIN = contjoinsel
 );
 
-CREATE FUNCTION point4d_containedin_circle4d(point4d, circle4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_containedin_circle4d(point4d, circle4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
-CREATE FUNCTION circle4d_contains_point4d(circle4d, point4d) RETURNS bool AS 'spatial' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION circle4d_contains_point4d(circle4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
 
 CREATE OPERATOR <@ (
     leftarg = point4d,

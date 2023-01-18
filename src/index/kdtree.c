@@ -4,7 +4,6 @@
 #include "access/spgist.h"
 #include "catalog/pg_type.h"
 #include "utils/float.h"
-PG_MODULE_MAGIC;
 #include "point4d.h"
 #include "kdt-stratnum.h"
 
@@ -90,12 +89,7 @@ Datum point4d_kdtree_picksplit(PG_FUNCTION_ARGS)
     PG_RETURN_VOID();
 }
 
-static double point4d_point4d_distance(const Point4D *a, const Point4D *b)
-{
-    Point4D diff = DIFF(a, b);
-
-    return sqrt(MAG(&diff));
-}
+#define point4d_point4d_distance(a, b) DatumGetFloat8(DirectFunctionCall2(point4d_dist, Point4DPGetDatum(a), Point4DPGetDatum(b)))
 
 static double point4d_box4d_distance(const Point4D *p, const Box4D *b)
 {
