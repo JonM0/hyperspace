@@ -1,12 +1,12 @@
-CREATE FUNCTION point4d_kdtree_config(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_kdtree_config(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_kdtree_choose(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_kdtree_choose(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_kdtree_picksplit(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_kdtree_picksplit(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_kdtree_inner_consistent(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_kdtree_inner_consistent(internal, internal) RETURNS void AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_kdtree_leaf_consistent(internal, internal) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_kdtree_leaf_consistent(internal, internal) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
 CREATE OPERATOR CLASS point4d_kd DEFAULT FOR TYPE point4d USING spgist AS 
 OPERATOR 1 <-> (point4d, point4d) FOR ORDER BY float_ops,

@@ -1,10 +1,10 @@
-CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_eq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_dist(point4d, point4d) RETURNS float8 AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_neq(point4d, point4d) RETURNS bool AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
-CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT;
+CREATE FUNCTION point4d_add(point4d, point4d) RETURNS point4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
 CREATE OPERATOR = (
     leftarg = point4d,
