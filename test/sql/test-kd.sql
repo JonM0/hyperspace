@@ -1,6 +1,6 @@
 CREATE TABLE t (a point4d);
 
-CREATE INDEX t_a_kdbspgist ON t USING spgist(a point4d_kdb);
+CREATE INDEX t_a_kdspgist ON t USING spgist(a point4d_kd);
 
 INSERT INTO t
 VALUES ('(0,0,0,1)'),
@@ -98,7 +98,7 @@ where a <@ circle4d '((1,1,1,1), 4.3)' and a <@ box4d '((0,0,0,0), (3,3,2,2))';
 
 SET enable_seqscan = TRUE;
 
-DROP INDEX t_a_kdbspgist;
+DROP INDEX t_a_kdspgist;
 
 SELECT a,
     a <->point4d '(0,0,2.34,0)' AS d

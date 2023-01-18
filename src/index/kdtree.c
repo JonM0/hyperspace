@@ -10,8 +10,8 @@ PG_MODULE_MAGIC;
 
 // to get type from name use typenameTypeId from "parser/parse_type.h"
 
-PG_FUNCTION_INFO_V1(point4d_kdbtree_config);
-Datum point4d_kdbtree_config(PG_FUNCTION_ARGS)
+PG_FUNCTION_INFO_V1(point4d_kdtree_config);
+Datum point4d_kdtree_config(PG_FUNCTION_ARGS)
 {
     // spgConfigIn *cfgin = (spgConfigIn *)PG_GETARG_POINTER(0);
     spgConfigOut *cfg = (spgConfigOut *)PG_GETARG_POINTER(1);
@@ -24,8 +24,8 @@ Datum point4d_kdbtree_config(PG_FUNCTION_ARGS)
     PG_RETURN_VOID();
 }
 
-PG_FUNCTION_INFO_V1(point4d_kdbtree_choose);
-Datum point4d_kdbtree_choose(PG_FUNCTION_ARGS)
+PG_FUNCTION_INFO_V1(point4d_kdtree_choose);
+Datum point4d_kdtree_choose(PG_FUNCTION_ARGS)
 {
     spgChooseIn *in = (spgChooseIn *)PG_GETARG_POINTER(0);
     spgChooseOut *out = (spgChooseOut *)PG_GETARG_POINTER(1);
@@ -54,8 +54,8 @@ Datum point4d_kdbtree_choose(PG_FUNCTION_ARGS)
     PG_RETURN_VOID();
 }
 
-PG_FUNCTION_INFO_V1(point4d_kdbtree_picksplit);
-Datum point4d_kdbtree_picksplit(PG_FUNCTION_ARGS)
+PG_FUNCTION_INFO_V1(point4d_kdtree_picksplit);
+Datum point4d_kdtree_picksplit(PG_FUNCTION_ARGS)
 {
     spgPickSplitIn *in = (spgPickSplitIn *)PG_GETARG_POINTER(0);
     spgPickSplitOut *out = (spgPickSplitOut *)PG_GETARG_POINTER(1);
@@ -160,8 +160,8 @@ static double *distances_from_point(const Point4D *point, ScanKey orderbys, int 
     return distances;
 }
 
-PG_FUNCTION_INFO_V1(point4d_kdbtree_inner_consistent);
-Datum point4d_kdbtree_inner_consistent(PG_FUNCTION_ARGS)
+PG_FUNCTION_INFO_V1(point4d_kdtree_inner_consistent);
+Datum point4d_kdtree_inner_consistent(PG_FUNCTION_ARGS)
 {
     spgInnerConsistentIn *in = (spgInnerConsistentIn *)PG_GETARG_POINTER(0);
     spgInnerConsistentOut *out = (spgInnerConsistentOut *)PG_GETARG_POINTER(1);
@@ -305,8 +305,8 @@ Datum point4d_kdbtree_inner_consistent(PG_FUNCTION_ARGS)
     PG_RETURN_VOID();
 }
 
-PG_FUNCTION_INFO_V1(point4d_kdbtree_leaf_consistent);
-Datum point4d_kdbtree_leaf_consistent(PG_FUNCTION_ARGS)
+PG_FUNCTION_INFO_V1(point4d_kdtree_leaf_consistent);
+Datum point4d_kdtree_leaf_consistent(PG_FUNCTION_ARGS)
 {
     spgLeafConsistentIn *in = (spgLeafConsistentIn *)PG_GETARG_POINTER(0);
     spgLeafConsistentOut *out = (spgLeafConsistentOut *)PG_GETARG_POINTER(1);

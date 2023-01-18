@@ -17,7 +17,7 @@ PG_CPPFLAGS = -Iinclude
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
-sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kdb.sql
+sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kd.sql
 	cat $+ > $@
 
 
