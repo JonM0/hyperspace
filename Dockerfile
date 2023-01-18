@@ -10,6 +10,7 @@ run apt update \
  && apt install -y build-essential postgresql-server-dev-15 \
 #  install
  && make && make install \
+ && make installcheck \
 # clean
  && rm -rf /usr/src/hyperspace \
  && apt purge -y --autoremove build-essential postgresql-server-dev-15 \
