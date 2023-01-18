@@ -3,5 +3,6 @@ sql/*--*.sql
 src/**/*.o
 src/**/*.so
 src/**/*.bc
+hyperspace.so
 regression.diffs
 regression.out

@@ -2,6 +2,7 @@
     "files.exclude": {
         "src/**/*.o": true,
         "src/**/*.so": true,
-        "src/**/*.bc": true
+        "src/**/*.bc": true,
+        "hyperspace.so": true
     }
 }
