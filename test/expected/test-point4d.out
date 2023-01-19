@@ -23,6 +23,12 @@ select ('(1,2,3,4)'::point4d)[200000];
         
 (1 row)
 
+select point4d(1,2,3,4);
+  point4d  
+-----------
+ (1,2,3,4)
+(1 row)
+
 create table t (
     a point4d
 );

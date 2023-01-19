@@ -63,3 +63,20 @@ Datum point4d_send(PG_FUNCTION_ARGS)
 	pq_sendfloat8(&buf, point4d->w);
 	PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
+
+PG_FUNCTION_INFO_V1(point4d);
+Datum point4d(PG_FUNCTION_ARGS)
+{
+    float8 x = PG_GETARG_FLOAT8(0);
+    float8 y = PG_GETARG_FLOAT8(1);
+    float8 z = PG_GETARG_FLOAT8(2);
+    float8 w = PG_GETARG_FLOAT8(3);
+	Point4D *result;
+
+	result = (Point4D *)palloc(sizeof(Point4D));
+	result->x = x;
+	result->y = y;
+	result->z = z;
+	result->w = w;
+	PG_RETURN_POINTER(result);
+}

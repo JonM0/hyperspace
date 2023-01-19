@@ -79,3 +79,23 @@ Datum box4d_send(PG_FUNCTION_ARGS)
     pq_sendfloat8(&buf, box4d->high.w);
     PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
+
+PG_FUNCTION_INFO_V1(box4d);
+Datum box4d(PG_FUNCTION_ARGS)
+{
+	Point4D *low = (Point4D *)PG_GETARG_POINTER(0);
+	Point4D *high = (Point4D *)PG_GETARG_POINTER(1);
+
+    Box4D *result;
+
+    result = (Box4D *)palloc(sizeof(Box4D));
+    result->low.x = float8_min(low->x, high->x);
+    result->low.y = float8_min(low->y, high->y);
+    result->low.z = float8_min(low->z, high->z);
+    result->low.w = float8_min(low->w, high->w);
+    result->high.x = float8_max(low->x, high->x);
+    result->high.y = float8_max(low->y, high->y);
+    result->high.z = float8_max(low->z, high->z);
+    result->high.w = float8_max(low->w, high->w);
+    PG_RETURN_POINTER(result);
+}

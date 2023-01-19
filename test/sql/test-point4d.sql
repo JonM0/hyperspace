@@ -6,6 +6,8 @@ from (select '(1,2,3,4)'::point4d as p) as p;
 select ('(1,2,3,4)'::point4d)[-1];
 select ('(1,2,3,4)'::point4d)[200000];
 
+select point4d(1,2,3,4);
+
 create table t (
     a point4d
 );

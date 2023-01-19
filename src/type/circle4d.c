@@ -69,3 +69,18 @@ Datum circle4d_send(PG_FUNCTION_ARGS)
     pq_sendfloat8(&buf, circle4d->radius);
     PG_RETURN_BYTEA_P(pq_endtypsend(&buf));
 }
+
+PG_FUNCTION_INFO_V1(circle4d);
+Datum circle4d(PG_FUNCTION_ARGS)
+{
+	Point4D *center = (Point4D *)PG_GETARG_POINTER(0);
+    float8 r = PG_GETARG_FLOAT8(1);
+
+    Circle4D *result;
+
+    result = (Circle4D *)palloc(sizeof(Circle4D));
+
+    result->center = *center;
+    result->radius = r < 0 ? -r : r;
+    PG_RETURN_POINTER(result);
+}

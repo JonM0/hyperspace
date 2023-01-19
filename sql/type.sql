@@ -17,6 +17,9 @@ CREATE TYPE point4d (
    element = float8
 );
 
+CREATE FUNCTION point4d(float8, float8, float8, float8) RETURNS point4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
+
+
 -- BOX 4D
 CREATE FUNCTION box4d_in(cstring) RETURNS box4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
@@ -36,6 +39,9 @@ CREATE TYPE box4d (
    element = point4d
 );
 
+CREATE FUNCTION box4d(point4d, point4d) RETURNS box4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
+
+
 -- CIRCLE 4D
 CREATE FUNCTION circle4d_in(cstring) RETURNS circle4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
 
@@ -53,3 +59,5 @@ CREATE TYPE circle4d (
    send = circle4d_send,
    alignment = double
 );
+
+CREATE FUNCTION circle4d(point4d, float8) RETURNS circle4d AS '$libdir/hyperspace' LANGUAGE C IMMUTABLE STRICT PARALLEL SAFE;
