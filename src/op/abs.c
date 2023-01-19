@@ -16,7 +16,6 @@ point4d_abs_cmp_internal(Point4D *a, Point4D *b)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_lt);
-
 Datum point4d_abs_lt(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -26,7 +25,6 @@ Datum point4d_abs_lt(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_le);
-
 Datum point4d_abs_le(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -36,7 +34,6 @@ Datum point4d_abs_le(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_eq);
-
 Datum point4d_abs_eq(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -46,7 +43,6 @@ Datum point4d_abs_eq(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_neq);
-
 Datum point4d_abs_neq(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -56,7 +52,6 @@ Datum point4d_abs_neq(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_ge);
-
 Datum point4d_abs_ge(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -66,7 +61,6 @@ Datum point4d_abs_ge(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_gt);
-
 Datum point4d_abs_gt(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);
@@ -76,7 +70,6 @@ Datum point4d_abs_gt(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(point4d_abs_cmp);
-
 Datum point4d_abs_cmp(PG_FUNCTION_ARGS)
 {
 	Point4D *a = (Point4D *)PG_GETARG_POINTER(0);

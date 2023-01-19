@@ -7,7 +7,6 @@
 // Define packing and unpacking of four dimensinal box type
 
 PG_FUNCTION_INFO_V1(box4d_in);
-
 Datum box4d_in(PG_FUNCTION_ARGS)
 {
     char *str = PG_GETARG_CSTRING(0);
@@ -34,7 +33,6 @@ Datum box4d_in(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(box4d_out);
-
 Datum box4d_out(PG_FUNCTION_ARGS)
 {
     Box4D *box4d = (Box4D *)PG_GETARG_POINTER(0);
@@ -47,7 +45,6 @@ Datum box4d_out(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(box4d_recv);
-
 Datum box4d_recv(PG_FUNCTION_ARGS)
 {
     StringInfo buf = (StringInfo)PG_GETARG_POINTER(0);
@@ -66,7 +63,6 @@ Datum box4d_recv(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(box4d_send);
-
 Datum box4d_send(PG_FUNCTION_ARGS)
 {
     Box4D *box4d = (Box4D *)PG_GETARG_POINTER(0);
