@@ -2,7 +2,7 @@ create table t (
     a point4d
 );
 
-create index t_a_btree on t using btree(a point4d_abs_ops);
+create index t_a_btree on t using btree(a);
 
 insert into t values
     ('(0,0,0,1)'),
@@ -18,10 +18,19 @@ insert into t values
 explain
 select a
 from t
-where a |=| '(1,0,0,0)'::point4d;
+where a = '(1,0,0,0)'::point4d;
 
 select a
 from t
-where a |=| '(1,0,0,0)'::point4d;
+where a = '(1,0,0,0)'::point4d;
+
+explain
+select a
+from t
+where a <= '(1,0,0,0)'::point4d;
+
+select a
+from t
+where a <= '(1,0,0,0)'::point4d;
 
 drop table t;

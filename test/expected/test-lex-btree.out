@@ -1,0 +1,57 @@
+create table t (
+    a point4d
+);
+create index t_a_btree on t using btree(a);
+insert into t values
+    ('(0,0,0,1)'),
+    ('(0,0,1,0)'),
+    ('(0,0,2,2)'),
+    ('(1,1,0.5,3)'),
+    ('(2,1,2,4)'),
+    ('(8,0,2,1)'),
+    ('(0,0,2,2)'),
+    ('(1,1,0.5,3)'),
+    ('(3,-9,2,32)');
+explain
+select a
+from t
+where a = '(1,0,0,0)'::point4d;
+                               QUERY PLAN                               
+------------------------------------------------------------------------
+ Bitmap Heap Scan on t  (cost=4.21..14.35 rows=7 width=32)
+   Recheck Cond: (a = '(1,0,0,0)'::point4d)
+   ->  Bitmap Index Scan on t_a_btree  (cost=0.00..4.21 rows=7 width=0)
+         Index Cond: (a = '(1,0,0,0)'::point4d)
+(4 rows)
+
+select a
+from t
+where a = '(1,0,0,0)'::point4d;
+ a 
+---
+(0 rows)
+
+explain
+select a
+from t
+where a <= '(1,0,0,0)'::point4d;
+                                QUERY PLAN                                
+--------------------------------------------------------------------------
+ Bitmap Heap Scan on t  (cost=7.66..23.33 rows=453 width=32)
+   Recheck Cond: (a <= '(1,0,0,0)'::point4d)
+   ->  Bitmap Index Scan on t_a_btree  (cost=0.00..7.55 rows=453 width=0)
+         Index Cond: (a <= '(1,0,0,0)'::point4d)
+(4 rows)
+
+select a
+from t
+where a <= '(1,0,0,0)'::point4d;
+     a     
+-----------
+ (0,0,0,1)
+ (0,0,1,0)
+ (0,0,2,2)
+ (0,0,2,2)
+(4 rows)
+
+drop table t;

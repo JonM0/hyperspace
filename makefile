@@ -19,7 +19,7 @@ PG_CPPFLAGS = $(PG_CFLAGS)
 
 all: sql/$(EXTENSION)--$(EXTVERSION).sql
 
-sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/abs.sql sql/kd.sql
+sql/$(EXTENSION)--$(EXTVERSION).sql: sql/type.sql sql/ops.sql sql/lexical.sql sql/abs.sql sql/kd.sql
 	cat $+ > $@
 
 $(OBJS): $(wildcard include/*)

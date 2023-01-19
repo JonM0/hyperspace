@@ -72,7 +72,7 @@ CREATE OPERATOR |>| (
    JOIN = scalargtjoinsel
 );
 
-CREATE OPERATOR CLASS point4d_abs_ops DEFAULT FOR TYPE point4d USING btree 
+CREATE OPERATOR CLASS point4d_abs_ops FOR TYPE point4d USING btree 
 AS OPERATOR 1 |<|,
 OPERATOR 2 |<=|,
 OPERATOR 3 |=|,
