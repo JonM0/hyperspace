@@ -1,7 +1,7 @@
 create table t (
     a point4d
 );
-create index t_a_btree on t using btree(a);
+create index t_a_btree on t using btree(a point4d_abs_ops);
 insert into t values
     ('(0,0,0,1)'),
     ('(0,0,1,0)'),
